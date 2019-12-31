@@ -10,6 +10,7 @@ const weather_apikey = 'd904d5f1a60dbb4abd1ff88725d805b5'
 
 //Defaults
 const defaultSource = 'reddit-r-all'
+let coords = ['32.8267', '-122.4233']
 
 $(document).ready(function(){
 
@@ -29,6 +30,9 @@ $(document).ready(function(){
 
   //News Update
   news();
+
+  //Weather Update
+  weather();
 })
 
 //News Update
@@ -67,3 +71,14 @@ function createArticle(article) {
 }
 
 //Weather Update
+async function weather() {
+  const proxy = 'https://cors-anywhere.herokuapp.com/'
+  let weather_call = `${proxy}https://api.darksky.net/forecast/${weather_apikey}/${coords[0]},${coords[1]}`
+  fetch(weather_call).then(response => {
+    return response.json();
+  }).then(data => {
+    console.log(data);
+  }).catch(e => {
+    console.log(e)
+  })
+}
